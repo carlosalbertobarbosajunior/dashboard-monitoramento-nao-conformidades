@@ -5,6 +5,10 @@ Dashboard para acompanhamento das não conformidades da HKM Indústria e Comérc
 
 O arquivo .sql de cada script foi disponibilizado na pasta **Consultas SQL**. 
 
+### Tabelas de dimensão
+
+#### Segmentos
+
   ```sql
   --Segmentos
 select 
@@ -17,4 +21,18 @@ where
 	cod_empresa = 1 and 
 	-- Apenas segmentos presentes nos orçamentos já criados na empresa 1 (exceto material de cliente)
 	nome in (select distinct plano_contas from torcamento_itens where cod_empresa = 1 and plano_contas <> 'MATERIAL DE CLIENTE')
+  ```
+
+#### Clientes
+
+  ```sql
+--Clientes
+select distinct 
+	codigo as 'ID', 
+	nome as 'Cliente' 
+from 
+	tcliente 
+where 
+	-- Considerando apenas a empresa 1
+	cod_empresa = 1
   ```
