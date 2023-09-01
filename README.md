@@ -1,9 +1,15 @@
 # dashboard-monitoramento-nao-conformidades
 Dashboard para acompanhamento das não conformidades da HKM Indústria e Comércio
 
+## Visual
+
 <img src="Dashboard.png">
 
 Todos os dados foram distorcidos para proteger as informações confidenciais da empresa.
+
+Todo o visual foi construído baseado nos dois filtros: A seleção de segmento de projeto à esquerda, e o período de projetos, na região inferior.
+
+O diagrama de entidade relacional foi construído para a obtenção do dinamismo dos filtros em prol dos dados provenientes das tabelas fato.
 
 ## Consultas ao banco de dados
 
