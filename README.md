@@ -1,6 +1,10 @@
 # dashboard-monitoramento-nao-conformidades
 Dashboard para acompanhamento das não conformidades da HKM Indústria e Comércio
 
+<img src="Dashboard.png">
+
+Todos os dados foram distorcidos para proteger as informações confidenciais da empresa.
+
 ## Consultas ao banco de dados
 
 O arquivo .sql de cada script foi disponibilizado na pasta **Consultas SQL**. 
@@ -203,3 +207,7 @@ where
 	-- Desconsiderando orçamentos de material de cliente (erro de digitação)
     toi.plano_contas <> 'MATERIAL DE CLIENTE'
   ```
+
+## Diagrama de Entidade Relacional
+
+<img src="Diagrama de Entidade Relacional/DER.png">
