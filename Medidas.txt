@@ -1,0 +1,72 @@
+TotalNCs = countrows('Não Conformidades')
+
+Contagem do número total de não conformidades.
+
+-----------------------
+
+TotalNCsCard = if(isblank(countrows('Não Conformidades')),0,countrows('Não Conformidades'))
+
+Contagem do número total de não conformidades. Retorna 0 caso esteja vazio. Esta versão é utilizada em um cartão para evitar exibir dado em branco.
+
+-----------------------
+
+CustoTotal = sum('Não Conformidades'[Custo])
+
+Soma de todo o custo com não conformidades.
+
+------------------------
+
+TotalFaturamento = sum('Notas Fiscais'[Valor])
+
+Soma de todo o faturamento da empresa
+
+-----------------------
+
+NCsRetrabalho = CALCULATE(COUNTROWS('Não Conformidades'),OR('Não Conformidades'[Custo]<>0, 'Não Conformidades'[Custo]<>BLANK()))
+
+Retorna a contagem das não conformidades com custo vazio ou zerado.
+
+------------------------
+
+%CustoRetrabalhoPorFaturamento = IF(ISBLANK([CustoTotal]/[TotalFaturamento]),0,[CustoTotal]/[TotalFaturamento])
+
+Custo total de não conformidades dividido pelo total de faturamento da empresa. Caso esteja vazio, retorna 0.
+
+------------------------
+
+%NCsRetrabalho = IF(ISBLANK([NCsRetrabalho]/[TotalNCs]),0,[NCsRetrabalho]/[TotalNCs])
+
+Percentual de não conformidades de retrabalho. Caso esteja vazio, retorna 0.
+
+------------------------
+
+MediaGravidade = IF(ISBLANK(CALCULATE(AVERAGE('Não Conformidades'[Nota1]),FILTER('Não Conformidades',AND('Não Conformidades'[GUT/PFMEA] = "GUT",'Não Conformidades'[Concluído] = 1)))),0,CALCULATE(AVERAGE('Não Conformidades'[Nota1]),FILTER('Não Conformidades',AND('Não Conformidades'[GUT/PFMEA] = "GUT",'Não Conformidades'[Concluído] = 1))))
+
+Calcula a média de notas de Gravidade (ou Nota 1 quando a metodologia for GUT) das não conformidades concluídas. Retorna 0 caso seja vazio.
+
+------------------------
+
+MediaUrgência = IF(ISBLANK(CALCULATE(AVERAGE('Não Conformidades'[Nota2]),FILTER('Não Conformidades',AND('Não Conformidades'[GUT/PFMEA] = "GUT",'Não Conformidades'[Concluído] = 1)))),0,CALCULATE(AVERAGE('Não Conformidades'[Nota2]),FILTER('Não Conformidades',AND('Não Conformidades'[GUT/PFMEA] = "GUT",'Não Conformidades'[Concluído] = 1))))
+
+Calcula a média de notas de Gravidade (ou Nota 2 quando a metodologia for GUT) das não conformidades concluídas. Retorna 0 caso seja vazio.
+
+------------------------
+
+MediaTendência = IF(ISBLANK(CALCULATE(AVERAGE('Não Conformidades'[Nota3]),FILTER('Não Conformidades',AND('Não Conformidades'[GUT/PFMEA] = "GUT",'Não Conformidades'[Concluído] = 1)))),0,CALCULATE(AVERAGE('Não Conformidades'[Nota3]),FILTER('Não Conformidades',AND('Não Conformidades'[GUT/PFMEA] = "GUT",'Não Conformidades'[Concluído] = 1))))
+
+Calcula a média de notas de Tendência (ou Nota 3 quando a metodologia for GUT) das não conformidades concluídas. Retorna 0 caso seja vazio.
+
+------------------------
+
+NCsAbertas = IF(ISBLANK(COUNTROWS(FILTER('Não Conformidades','Não Conformidades'[Concluído]=0))),0,COUNTROWS(FILTER('Não Conformidades','Não Conformidades'[Concluído]=0)))
+
+Conta o número de não conformidades ainda não concluídas, retorna 0 caso esteja vazio.
+
+------------------------
+
+NCsFechadas = CALCULATE(COUNTROWS('Não Conformidades'), USERELATIONSHIP(Calendario[Date], 'Não Conformidades'[Data de Fechamento]))
+
+Conta o número de não conformidades concluídas. Utiliza a relação da data de fechamento com o calendário, para ter essa contagem em uma série temporal.
+
+-------------------------
+
